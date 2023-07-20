@@ -13,6 +13,19 @@
         android:theme="@style/Theme.SwooshBasketBall"
         tools:targetApi="31">
         <activity
+            android:name=".FinishActivity"
+            android:exported="false"
+            android:label="@string/title_activity_finish"
+            android:theme="@style/Theme.SwooshBasketBall" />
+        <activity
+            android:name=".FinalActivity"
+            android:exported="false"
+            android:label="@string/title_activity_final"
+            android:theme="@style/Theme.SwooshBasketBall" />
+        <activity
+            android:name=".SkillActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
