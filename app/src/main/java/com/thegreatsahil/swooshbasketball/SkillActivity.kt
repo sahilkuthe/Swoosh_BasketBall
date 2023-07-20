@@ -1,67 +1,58 @@
 package com.thegreatsahil.swooshbasketball
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.thegreatsahil.swooshbasketball.Model.Player
 import com.thegreatsahil.swooshbasketball.databinding.ActivitySkillBinding
-import com.thegreatsahil.swooshbasketball.utilities.EXTRA_LEAGUE
-import com.thegreatsahil.swooshbasketball.utilities.EXTRA_SKILL
+import com.thegreatsahil.swooshbasketball.utilities.EXTRA_PLAYER
 
-private lateinit var binding : ActivitySkillBinding
+//private lateinit var binding : ActivitySkillBinding
 
-class SkillActivity : BaseActivity() {
+class SkillActivity : AppCompatActivity() {
 
-    var skill = ""
+    private lateinit var binding: ActivitySkillBinding
+    lateinit var player: Player
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivitySkillBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+//        player = if(Build.VERSION.SDK_INT>=33){
+//            intent.getParcelableExtra(EXTRA_PLAYER, Player::class.java)
+//        }else{
+//            intent.getParcelableExtra(EXTRA_PLAYER)
+//        }?: Player("", "")
 
-        val intent = intent;
-        val league = intent.getStringExtra(EXTRA_LEAGUE)
-        println(league)
+        player = intent.getParcelableExtra(EXTRA_PLAYER)?: Player("", "")
 
     }
 
     fun beginnerBtnClicked(view: View){
         binding.ballerBtn.isChecked = false
-        skill = "beginner"
+        player.skill = "beginner"
 
     }
 
     fun ballerBtnClicked(view: View){
         binding.beginnerBtn.isChecked = false
-        skill = "baller"
+        player.skill = "baller"
 
     }
 
     fun finishBtnClicked(view: View){
-        if(skill != ""){
+        if(player.skill != ""){
             val finishActivity = Intent(this, FinishActivity::class.java)
-            finishActivity.putExtra(EXTRA_SKILL, skill)
-            val league = intent.getStringExtra(EXTRA_LEAGUE)
-            finishActivity.putExtra(EXTRA_LEAGUE, league)
+            finishActivity.putExtra(EXTRA_PLAYER, player)
             startActivity(finishActivity)
 
         }else{
             Toast.makeText(this, "Please select a skill!", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
